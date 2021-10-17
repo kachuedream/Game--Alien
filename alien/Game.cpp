@@ -80,11 +80,5 @@ void Game::render()
 		enemies.at(i).render(window);
 	}
 
-	////render bulen
-	//for (int i = 0; i < bulens.size(); i++)
-	//{
-	//	bulens.at(i).render(window);
-	//}
-
 	this->player.render(*window);
 }
