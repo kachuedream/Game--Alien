@@ -4,7 +4,7 @@ using namespace sf;
 
 void Player::initVariables()
 {
-	this->movementSpeed = 500.f;
+	this->movementSpeed = 400.f;
 }
 
 void Player::initTexture()

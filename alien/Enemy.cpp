@@ -40,7 +40,7 @@ void Enemy::update(float deltaTime, vector<Bullet>& bullets, Texture* bulenTextu
 	{
 		targetPos.x = rand() % int(flyAreaSize.x) + flyAreaPos.x;
 		targetPos.y = rand() % int(flyAreaSize.y) + flyAreaPos.y;
-		bullets.push_back(Bullet(bulenTexture, enemySprite.getPosition(), Vector2f(-1, 0), 200, ENEMY_B));
+		bullets.push_back(Bullet(bulenTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 200.f, ENEMY_B));
 	}
 }
 

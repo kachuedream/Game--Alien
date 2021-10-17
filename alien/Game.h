@@ -4,7 +4,6 @@
 #include "Bullet.h"
 #include "Background.h"
 #include "Enemy.h"
-#include "BulEn.h"
 
 class Game
 {
