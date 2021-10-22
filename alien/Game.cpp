@@ -8,7 +8,7 @@ Game::Game(RenderWindow* window)
 	bulletTexture.loadFromFile("bullets.png");
 	enemyTexture.loadFromFile("enemy1.png");
 	bulenTexture.loadFromFile("bulen1.png");
-
+	 
 	backgroundTexture[0].loadFromFile("sky.jpg");
 	backgroundTexture[1].loadFromFile("moon.png");
 	backgroundTexture[2].loadFromFile("star1.png");
