@@ -20,6 +20,8 @@ public:
 	Vector2f getPos();
 	Vector2f getSize();
 
+	FloatRect getGlobalBounds();
+
 	void update(float deltaTime, vector<Bullet>& bullets, Texture* bulenTexture);
 	void render(RenderWindow* window);
 

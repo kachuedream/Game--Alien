@@ -8,7 +8,7 @@ Game::Game(RenderWindow* window)
 	bulletTexture.loadFromFile("bullets.png");
 	enemyTexture.loadFromFile("enemy1.png");
 	bulenTexture.loadFromFile("bulen1.png");
-	 
+
 	backgroundTexture[0].loadFromFile("sky.jpg");
 	backgroundTexture[1].loadFromFile("moon.png");
 	backgroundTexture[2].loadFromFile("star1.png");
@@ -23,7 +23,7 @@ Game::Game(RenderWindow* window)
 	backgrounds.push_back(Background(&backgroundTexture[4], -100.f));
 	backgrounds.push_back(Background(&backgroundTexture[5], 70.f));
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		enemies.push_back(Enemy(Vector2f(1920, 0), enemyTexture));
 	}
@@ -40,13 +40,6 @@ void Game::update(float deltaTime)
 		bullets.push_back(Bullet(&bulletTexture, player.getPos() + offset, Vector2f(1.f, 0.f), 1000.f));
 	}
 
-
-	//update enemies
-	for (int i = 0; i < enemies.size(); i++)
-	{
-		enemies.at(i).update(deltaTime, bullets, &bulenTexture);
-	}
-
 	//update bullets
 	for (int i = 0; i < bullets.size(); i++)
 	{
@@ -54,6 +47,22 @@ void Game::update(float deltaTime)
 		if (bullets.at(i).died)
 		{
 			bullets.erase(bullets.begin() + i);
+		}
+	}
+
+	//update enemies
+	for (int e = 0; e < enemies.size(); e++)
+	{
+		enemies.at(e).update(deltaTime, bullets, &bulenTexture);
+		for (size_t b = 0; b < bullets.size(); b++)
+		{
+			if (bullets[b].getGlobalBounds().intersects(enemies[e].getGlobalBounds()) && bullets[b].tag!= ENEMY_B)
+			{
+				enemies.erase(enemies.begin() + e);
+				enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture));
+				break;
+				
+			}
 		}
 	}
 

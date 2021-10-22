@@ -17,8 +17,8 @@ Enemy::Enemy(Vector2f spawnPoint, Texture& texture)
 
 	speed = 300;
 
-	targetPos.x = rand() % int(flyAreaSize.x) + flyAreaPos.x;
-	targetPos.y = rand() % int(flyAreaSize.y) + flyAreaPos.y;
+	targetPos.x = rand() % int(flyAreaSize.x) + flyAreaPos.x ;
+	targetPos.y = rand() % int(flyAreaSize.y) + flyAreaPos.y ;
 }
 
 Vector2f Enemy::getPos()
@@ -29,6 +29,11 @@ Vector2f Enemy::getPos()
 Vector2f Enemy::getSize()
 {
 	return Vector2f(enemySprite.getGlobalBounds().width, enemySprite.getGlobalBounds().height);
+}
+
+FloatRect Enemy::getGlobalBounds() 
+{
+	return this->enemySprite.getGlobalBounds();
 }
 
 void Enemy::update(float deltaTime, vector<Bullet>& bullets, Texture* bulenTexture)

@@ -22,7 +22,7 @@ public:
 	virtual~Bullet();
 
 	//accessor
-	const FloatRect getBounds()const;
+	FloatRect getGlobalBounds();
 
 	void update(float deltaTime);
 	void render(RenderTarget* target);
