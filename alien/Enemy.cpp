@@ -7,7 +7,7 @@ Enemy::Enemy()
 Enemy::Enemy(Vector2f spawnPoint, Texture& texture)
 {
 	this->enemySprite.setTexture(texture);
-	this->enemySprite.scale(0.2f, 0.2f);
+	this->enemySprite.scale(0.3f, 0.3f);
 	this->enemySprite.setPosition(spawnPoint);
 
 	flyAreaPos = Vector2f(1000.f, 0.f);

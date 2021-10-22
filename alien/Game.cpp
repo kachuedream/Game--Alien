@@ -6,8 +6,8 @@ Game::Game(RenderWindow* window)
 	attackCooldownMax = 0.1;
 	attackCooldown = attackCooldownMax;
 	bulletTexture.loadFromFile("bullets.png");
-	enemyTexture.loadFromFile("enemy.png");
-	bulenTexture.loadFromFile("bulletenemy.png");
+	enemyTexture.loadFromFile("enemy1.png");
+	bulenTexture.loadFromFile("bulen1.png");
 
 	backgroundTexture[0].loadFromFile("sky.jpg");
 	backgroundTexture[1].loadFromFile("moon.png");
@@ -23,7 +23,7 @@ Game::Game(RenderWindow* window)
 	backgrounds.push_back(Background(&backgroundTexture[4], -100.f));
 	backgrounds.push_back(Background(&backgroundTexture[5], 70.f));
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		enemies.push_back(Enemy(Vector2f(1920, 0), enemyTexture));
 	}
