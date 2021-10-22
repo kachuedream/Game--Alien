@@ -25,7 +25,7 @@ Game::Game(RenderWindow* window)
 
 	for (int i = 0; i < 5; i++)
 	{
-		enemies.push_back(Enemy(Vector2f(1920, 0), enemyTexture));
+		enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture));
 	}
 }
 
