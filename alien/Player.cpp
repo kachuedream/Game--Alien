@@ -21,6 +21,11 @@ void Player::initTexture()
 	animation.init(&texture, Vector2u(2, 2), 0.2f);
 }
 
+FloatRect Player::getGlobalBounds()
+{
+	return this->sprite.getGlobalBounds();
+}
+
 Player::Player()
 {
 	this->initVariables();

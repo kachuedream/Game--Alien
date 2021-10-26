@@ -1,8 +1,5 @@
 #include "Enemy.h"
 
-Enemy::Enemy()
-{
-}
 
 Enemy::Enemy(Vector2f spawnPoint, Texture& texture)
 {
@@ -11,6 +8,8 @@ Enemy::Enemy(Vector2f spawnPoint, Texture& texture)
 	this->enemySprite.setPosition(spawnPoint);
 
 	flyAreaPos = Vector2f(1000.f, 0.f);
+
+	shootCount = 0;
 
 	// subtract enemy size so enemy won't get out of screen
 	flyAreaSize = Vector2f(960.f - enemySprite.getGlobalBounds().width, 1080.f - enemySprite.getGlobalBounds().height);
@@ -36,7 +35,7 @@ FloatRect Enemy::getGlobalBounds()
 	return this->enemySprite.getGlobalBounds();
 }
 
-void Enemy::update(float deltaTime, vector<Bullet>& bullets, Texture* bulenTexture)
+void Enemy::update(float deltaTime, vector<Bullet>& bullets, vector<Item>& shields, vector<Item>& doubles, Texture* bulenTexture, Texture* shieldTexture, Texture* doubleTexture)
 {
 	direction = normalize(targetPos - enemySprite.getPosition());
 	enemySprite.move(direction * speed * deltaTime);
@@ -45,7 +44,18 @@ void Enemy::update(float deltaTime, vector<Bullet>& bullets, Texture* bulenTextu
 	{
 		targetPos.x = rand() % int(flyAreaSize.x) + flyAreaPos.x;
 		targetPos.y = rand() % int(flyAreaSize.y) + flyAreaPos.y;
-		bullets.push_back(Bullet(bulenTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 200.f, ENEMY_B));
+		shootCount++;
+
+		if(shootCount%5==0)
+		shields.push_back(Item(shieldTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 200.f));
+
+		if (shootCount % 10 == 0)
+			doubles.push_back(Item(doubleTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 200.f));
+
+		else 
+		{
+			bullets.push_back(Bullet(bulenTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 200.f, ENEMY_B));
+		}
 	}
 }
 

@@ -4,6 +4,7 @@
 #include "Bullet.h"
 #include "Background.h"
 #include "Enemy.h"
+#include "Item.h"
 
 class Game
 {
@@ -11,13 +12,13 @@ private:
 	RenderWindow* window;
 
 	Player player;
+	vector<Player> players;
 
 	Texture bulletTexture;
 	vector<Bullet> bullets;
 
 	Texture bulenTexture;
 
-	Enemy enemy;
 	Texture enemyTexture;
 	vector<Enemy> enemies;
 
@@ -26,6 +27,13 @@ private:
 
 	float attackCooldown;
 	float attackCooldownMax;
+
+	Texture doubleTexture;
+	Texture shieldTexture;
+	vector<Item> shields;
+	vector<Item> doubles;
+
+	bool gameOver;
 
 public:
 	Game(RenderWindow* window);

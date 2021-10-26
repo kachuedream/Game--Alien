@@ -1,6 +1,7 @@
 #pragma once
 #include "AllHeader.h"
 #include "Animation.h"
+#include "Bullet.h"
 
 class Player
 {
@@ -14,6 +15,11 @@ private:
 
 	void initVariables();
 	void initTexture();
+
+	vector<Player> players;
+	vector<Bullet> bullets;
+
+	FloatRect getGlobalBounds();
 
 public:
 	Player();
