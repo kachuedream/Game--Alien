@@ -8,6 +8,15 @@ Game::Game(RenderWindow* window)
 	bulletTexture.loadFromFile("bullets.png");
 	enemyTexture.loadFromFile("enemy1.png");
 	bulenTexture.loadFromFile("bulen1.png");
+	
+	//score
+	score = 0;
+	font.loadFromFile("GAMERIA.ttf");
+	textScore.setFont(font);
+	textScore.setFillColor(Color::White);
+	textScore.setCharacterSize(50);
+	textScore.setPosition(Vector2f(30,20));
+	textScore.setString("Score "+to_string(score));
 
 	//item
 	doubleTexture.loadFromFile("double.png");
@@ -87,8 +96,9 @@ void Game::update(float deltaTime)
 			{
 				enemies.erase(enemies.begin() + e);
 				enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture));
+				score += 100;
+				textScore.setString("Score " + to_string(score));
 				break;
-				
 			}
 		}
 	}
@@ -96,6 +106,7 @@ void Game::update(float deltaTime)
 	//update background
 	for (Background& background : backgrounds)
 		background.update(deltaTime);
+
 }
 
 void Game::render()
@@ -129,4 +140,7 @@ void Game::render()
 	}
 
 	this->player.render(*window);
+
+	window->draw(textScore);
+
 }

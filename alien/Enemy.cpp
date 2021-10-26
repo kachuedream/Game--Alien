@@ -46,10 +46,10 @@ void Enemy::update(float deltaTime, vector<Bullet>& bullets, vector<Item>& shiel
 		targetPos.y = rand() % int(flyAreaSize.y) + flyAreaPos.y;
 		shootCount++;
 
-		if(shootCount%5==0)
+		if( shootCount % 3 == 0 )
 		shields.push_back(Item(shieldTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 200.f));
 
-		if (shootCount % 10 == 0)
+		if (shootCount % 5 == 0)
 			doubles.push_back(Item(doubleTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 200.f));
 
 		else 

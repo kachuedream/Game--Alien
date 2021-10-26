@@ -11,6 +11,10 @@ class Game
 private:
 	RenderWindow* window;
 
+	int score;
+	Font font;
+	Text textScore;
+
 	Player player;
 	vector<Player> players;
 
