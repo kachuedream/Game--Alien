@@ -17,10 +17,8 @@ private:
 	Vector2f flyAreaSize;
 	Vector2f direction;
 	Vector2f targetPos;
-	float speed;
 
-	bool gameOver;
-	bool shieldOn;
+	float speed;
 
 public:
 
@@ -31,7 +29,7 @@ public:
 
 	FloatRect getGlobalBounds();
 
-	void update(float deltaTime, vector<Bullet>& bullets,vector<Item>&shields, vector<Item>& doubles, Texture* bulenTexture,Texture*shieldTexture, Texture* doubleTexture);
+	void update(float deltaTime, vector<Bullet>& bullets,vector<Item>&shields,  Texture* bulenTexture,Texture*shieldTexture);
 	void render(RenderWindow* window);
 
 };

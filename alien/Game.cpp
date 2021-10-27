@@ -8,6 +8,7 @@ Game::Game(RenderWindow* window)
 	bulletTexture.loadFromFile("bullets.png");
 	enemyTexture.loadFromFile("enemy1.png");
 	bulenTexture.loadFromFile("bulen1.png");
+	armorTexture.loadFromFile("armor.png"); 
 	
 	//score
 	score = 0;
@@ -19,7 +20,6 @@ Game::Game(RenderWindow* window)
 	textScore.setString("Score "+to_string(score));
 
 	//item
-	doubleTexture.loadFromFile("double.png");
 	shieldTexture.loadFromFile("shield.png");
 
 	//background
@@ -41,9 +41,6 @@ Game::Game(RenderWindow* window)
 	{
 		enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture));
 	}
-	
-	gameOver = false;
-	shieldOn = false;
 }
 
 void Game::update(float deltaTime)
@@ -66,11 +63,14 @@ void Game::update(float deltaTime)
 			bullets.erase(bullets.begin() + i);
 			continue;
 		}
+
 		if (player.getGlobalBounds().intersects(bullets[i].getGlobalBounds()) && bullets[i].tag == ENEMY_B)
 		{
 			window->close();
 		}
+
 	}
+
 
 	//update shield
 	for (int i = 0; i < shields.size(); i++)
@@ -80,22 +80,20 @@ void Game::update(float deltaTime)
 		{
 			shields.erase(shields.begin() + i);
 		}
-	}
 
-	//update double
-	for (int i = 0; i < doubles.size(); i++)
-	{
-		doubles.at(i).update(deltaTime);
-		if (doubles.at(i).died)
+		if (player.getGlobalBounds().intersects(shields[i].getGlobalBounds()))
 		{
-			doubles.erase(doubles.begin() + i);
+			shields.push_back(Item(&armorTexture, player.getPos(), Vector2f(0.f, 0.f), 500.f));
+			shields.erase(shields.begin()+i);
+			break;
 		}
+		
 	}
 
 	//update enemies
 	for (int e = 0; e < enemies.size(); e++)
 	{
-		enemies.at(e).update(deltaTime, bullets, shields,doubles, &bulenTexture,&shieldTexture,&doubleTexture);
+		enemies.at(e).update(deltaTime, bullets, shields, &bulenTexture,&shieldTexture);
 		for (size_t b = 0; b < bullets.size(); b++)
 		{
 			if (bullets[b].getGlobalBounds().intersects(enemies[e].getGlobalBounds()) && bullets[b].tag != ENEMY_B)
@@ -112,7 +110,6 @@ void Game::update(float deltaTime)
 	//update background
 	for (Background& background : backgrounds)
 		background.update(deltaTime);
-
 }
 
 void Game::render()
@@ -133,12 +130,6 @@ void Game::render()
 		shields.at(i).render(window);
 	}
 
-	//render double
-	for (int i = 0; i < doubles.size(); i++)
-	{
-		doubles.at(i).render(window);
-	}
-
 	//render enemy
 	for (int i = 0; i < enemies.size(); i++)
 	{
@@ -148,5 +139,4 @@ void Game::render()
 	this->player.render(*window);
 
 	window->draw(textScore);
-
 }

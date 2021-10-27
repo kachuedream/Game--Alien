@@ -35,30 +35,29 @@ FloatRect Enemy::getGlobalBounds()
 	return this->enemySprite.getGlobalBounds();
 }
 
-void Enemy::update(float deltaTime, vector<Bullet>& bullets, vector<Item>& shields, vector<Item>& doubles, Texture* bulenTexture, Texture* shieldTexture, Texture* doubleTexture)
+void Enemy::update(float deltaTime, vector<Bullet>& bullets, vector<Item>& shields, Texture* bulenTexture, Texture* shieldTexture)
 {
 	direction = normalize(targetPos - enemySprite.getPosition());
 	enemySprite.move(direction * speed * deltaTime);
 
-	if (distance(enemySprite.getPosition(), targetPos) < 10.f)
+	if (distance(enemySprite.getPosition(), targetPos) < 10.f )
 	{
 		targetPos.x = rand() % int(flyAreaSize.x) + flyAreaPos.x;
 		targetPos.y = rand() % int(flyAreaSize.y) + flyAreaPos.y;
 		shootCount++;
 
 		if( shootCount % 3 == 0 )
-		shields.push_back(Item(shieldTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 200.f));
+		shields.push_back(Item(shieldTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 300.f));
 
-		if (shootCount % 5 == 0)
+		/*if (shootCount % 5 == 0)
 		{
-			doubles.push_back(Item(doubleTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 200.f));
-		}
+			doubles.push_back(Item(doubleTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 300.f));
+		}*/
 		else 
 		{
-			bullets.push_back(Bullet(bulenTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 200.f, ENEMY_B));
+			bullets.push_back(Bullet(bulenTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 500.f, ENEMY_B));
 		}
 	}
-
 	
 }
 

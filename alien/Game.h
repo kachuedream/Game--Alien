@@ -37,13 +37,10 @@ private:
 	float attackCooldownMax;
 
 	//item
-	Texture doubleTexture;
 	Texture shieldTexture;
+	Texture armorTexture;
 	vector<Item> shields;
-	vector<Item> doubles;
-
-	bool gameOver;
-	bool shieldOn;
+	//vector<Item> doubles;
 
 public:
 	Game(RenderWindow* window);
