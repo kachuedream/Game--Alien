@@ -41,8 +41,9 @@ Game::Game(RenderWindow* window)
 	{
 		enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture));
 	}
-
+	
 	gameOver = false;
+	shieldOn = false;
 }
 
 void Game::update(float deltaTime)
@@ -63,6 +64,11 @@ void Game::update(float deltaTime)
 		if (bullets.at(i).died)
 		{
 			bullets.erase(bullets.begin() + i);
+			continue;
+		}
+		if (player.getGlobalBounds().intersects(bullets[i].getGlobalBounds()) && bullets[i].tag == ENEMY_B)
+		{
+			window->close();
 		}
 	}
 
@@ -92,7 +98,7 @@ void Game::update(float deltaTime)
 		enemies.at(e).update(deltaTime, bullets, shields,doubles, &bulenTexture,&shieldTexture,&doubleTexture);
 		for (size_t b = 0; b < bullets.size(); b++)
 		{
-			if (bullets[b].getGlobalBounds().intersects(enemies[e].getGlobalBounds()) && bullets[b].tag!= ENEMY_B)
+			if (bullets[b].getGlobalBounds().intersects(enemies[e].getGlobalBounds()) && bullets[b].tag != ENEMY_B)
 			{
 				enemies.erase(enemies.begin() + e);
 				enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture));

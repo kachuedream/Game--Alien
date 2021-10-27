@@ -19,8 +19,6 @@ private:
 	vector<Player> players;
 	vector<Bullet> bullets;
 
-	FloatRect getGlobalBounds();
-
 public:
 	Player();
 	virtual~Player();
@@ -28,6 +26,7 @@ public:
 	//accessor
 	const Vector2f& getPos() const;
 	const Vector2f& getSize() const;
+	FloatRect getGlobalBounds();
 
 	//function
 	void move(const float dirX, const float dirY);

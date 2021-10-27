@@ -2,11 +2,14 @@
 #include "AllHeader.h"
 #include "Bullet.h"
 #include "Item.h"
+#include "Player.h"
 
 class Enemy
 {
 private:
 	Sprite enemySprite;
+
+	vector<Enemy> enemies;
 
 	int shootCount;
 
@@ -15,6 +18,9 @@ private:
 	Vector2f direction;
 	Vector2f targetPos;
 	float speed;
+
+	bool gameOver;
+	bool shieldOn;
 
 public:
 

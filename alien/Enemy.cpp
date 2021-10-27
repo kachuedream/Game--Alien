@@ -50,13 +50,16 @@ void Enemy::update(float deltaTime, vector<Bullet>& bullets, vector<Item>& shiel
 		shields.push_back(Item(shieldTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 200.f));
 
 		if (shootCount % 5 == 0)
+		{
 			doubles.push_back(Item(doubleTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 200.f));
-
+		}
 		else 
 		{
 			bullets.push_back(Bullet(bulenTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 200.f, ENEMY_B));
 		}
 	}
+
+	
 }
 
 void Enemy::render(RenderWindow* window)
