@@ -38,7 +38,7 @@ Game::Game(RenderWindow* window)
 	backgrounds.push_back(Background(&backgroundTexture[4], -100.f));
 	backgrounds.push_back(Background(&backgroundTexture[5], 70.f));
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture));
 	}
@@ -72,7 +72,6 @@ void Game::update(float deltaTime)
 			if (shieldOn)
 			{
 				bullets.erase(bullets.begin() + b);
-				//barriers.clear();
 				shieldOn = false;
 			}
 			else
@@ -93,7 +92,6 @@ void Game::update(float deltaTime)
 		}
 		if (player.getGlobalBounds().intersects(shields[s].getGlobalBounds()))
 		{
-			//barriers.push_back(Item(&barrierTexture, player.getPos(), Vector2f(0.f, 0.f), 500.f));
 			shields.erase(shields.begin() + s);
 			shieldOn = true;
 		}
@@ -115,17 +113,6 @@ void Game::update(float deltaTime)
 			}
 		}
 	}
-
-	////update barrier
-	//for (int a = 0; a < barriers.size(); a++)
-	//{
-	//	barriers.at(a).update(deltaTime);
-	//	if (barriers.at(a).died)
-	//	{
-	//		barriers.erase(barriers.begin() + a);
-	//		continue;
-	//	}
-	//}
 
 	//update background
 	for (Background& background : backgrounds)
