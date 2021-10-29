@@ -4,7 +4,7 @@
 Enemy::Enemy(Vector2f spawnPoint, Texture& texture)
 {
 	this->enemySprite.setTexture(texture);
-	this->enemySprite.scale(0.3f, 0.3f);
+	this->enemySprite.scale(0.15f, 0.15f);
 	this->enemySprite.setPosition(spawnPoint);
 
 	flyAreaPos = Vector2f(1000.f, 0.f);
@@ -49,10 +49,6 @@ void Enemy::update(float deltaTime, vector<Bullet>& bullets, vector<Item>& shiel
 		if( shootCount % 3 == 0 )
 		shields.push_back(Item(shieldTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 300.f));
 
-		/*if (shootCount % 5 == 0)
-		{
-			doubles.push_back(Item(doubleTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 300.f));
-		}*/
 		else 
 		{
 			bullets.push_back(Bullet(bulenTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 500.f, ENEMY_B));

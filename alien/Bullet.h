@@ -2,6 +2,7 @@
 #define BULLET_H
 
 #include "AllHeader.h"
+
 #define PLAYER_B 0
 #define ENEMY_B 1
 

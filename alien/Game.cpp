@@ -6,9 +6,9 @@ Game::Game(RenderWindow* window)
 	attackCooldownMax = 0.1;
 	attackCooldown = attackCooldownMax;
 	bulletTexture.loadFromFile("bullets.png");
-	enemyTexture.loadFromFile("enemy1.png");
+	enemyTexture.loadFromFile("enemy2.png");
 	bulenTexture.loadFromFile("bulen1.png");
-	armorTexture.loadFromFile("armor.png"); 
+	barrierTexture.loadFromFile("barrier.png");
 	
 	//score
 	score = 0;
@@ -19,8 +19,9 @@ Game::Game(RenderWindow* window)
 	textScore.setPosition(Vector2f(30,20));
 	textScore.setString("Score "+to_string(score));
 
-	//item
-	shieldTexture.loadFromFile("shield.png");
+	//items
+	shieldTexture.loadFromFile("shield1.png");
+	shieldOn = false;
 
 	//background
 	backgroundTexture[0].loadFromFile("sky.jpg");
@@ -37,15 +38,18 @@ Game::Game(RenderWindow* window)
 	backgrounds.push_back(Background(&backgroundTexture[4], -100.f));
 	backgrounds.push_back(Background(&backgroundTexture[5], 70.f));
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture));
 	}
+
+	barrier.setTexture(barrierTexture);
 }
 
 void Game::update(float deltaTime)
 {
 	player.update(deltaTime);
+	barrier.setPosition(player.getPos());
 	attackCooldown += deltaTime;
 	if (Mouse::isButtonPressed(Mouse::Left) && attackCooldown >= attackCooldownMax)
 	{
@@ -55,39 +59,44 @@ void Game::update(float deltaTime)
 	}
 
 	//update bullets
-	for (int i = 0; i < bullets.size(); i++)
+	for (int b = 0; b < bullets.size(); b++)
 	{
-		bullets.at(i).update(deltaTime);
-		if (bullets.at(i).died)
+		bullets.at(b).update(deltaTime);
+		if (bullets.at(b).died)
 		{
-			bullets.erase(bullets.begin() + i);
+			bullets.erase(bullets.begin() + b);
 			continue;
 		}
-
-		if (player.getGlobalBounds().intersects(bullets[i].getGlobalBounds()) && bullets[i].tag == ENEMY_B)
+		if (player.getGlobalBounds().intersects(bullets[b].getGlobalBounds()) && bullets[b].tag == ENEMY_B)
 		{
-			window->close();
+			if (shieldOn)
+			{
+				bullets.erase(bullets.begin() + b);
+				//barriers.clear();
+				shieldOn = false;
+			}
+			else
+			{
+				window->close();
+			}
 		}
-
 	}
 
-
 	//update shield
-	for (int i = 0; i < shields.size(); i++)
+	for (int s = 0; s < shields.size(); s++)
 	{
-		shields.at(i).update(deltaTime);
-		if (shields.at(i).died)
+		shields.at(s).update(deltaTime);
+		if (shields.at(s).died)
 		{
-			shields.erase(shields.begin() + i);
+			shields.erase(shields.begin() + s);
+			continue;
 		}
-
-		if (player.getGlobalBounds().intersects(shields[i].getGlobalBounds()))
+		if (player.getGlobalBounds().intersects(shields[s].getGlobalBounds()))
 		{
-			shields.push_back(Item(&armorTexture, player.getPos(), Vector2f(0.f, 0.f), 500.f));
-			shields.erase(shields.begin()+i);
-			break;
+			//barriers.push_back(Item(&barrierTexture, player.getPos(), Vector2f(0.f, 0.f), 500.f));
+			shields.erase(shields.begin() + s);
+			shieldOn = true;
 		}
-		
 	}
 
 	//update enemies
@@ -106,6 +115,17 @@ void Game::update(float deltaTime)
 			}
 		}
 	}
+
+	////update barrier
+	//for (int a = 0; a < barriers.size(); a++)
+	//{
+	//	barriers.at(a).update(deltaTime);
+	//	if (barriers.at(a).died)
+	//	{
+	//		barriers.erase(barriers.begin() + a);
+	//		continue;
+	//	}
+	//}
 
 	//update background
 	for (Background& background : backgrounds)
@@ -135,6 +155,15 @@ void Game::render()
 	{
 		enemies.at(i).render(window);
 	}
+
+	if (shieldOn)
+		window->draw(barrier);
+
+	////render barrier
+	//for (int i = 0; i < barriers.size(); i++)
+	//{
+	//	barriers.at(i).render(window);
+	//}
 
 	this->player.render(*window);
 

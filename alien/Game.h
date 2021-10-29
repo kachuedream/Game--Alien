@@ -24,6 +24,7 @@ private:
 	Texture bulletTexture;
 	Texture bulenTexture;
 	vector<Bullet> bullets;
+	Bullet bulletss;
 
 	//enemy
 	Texture enemyTexture;
@@ -37,10 +38,13 @@ private:
 	float attackCooldownMax;
 
 	//item
+	Item item;
+	bool shieldOn;
+	Sprite barrier;
 	Texture shieldTexture;
-	Texture armorTexture;
+	Texture barrierTexture;
 	vector<Item> shields;
-	//vector<Item> doubles;
+	//vector<Item> barriers;
 
 public:
 	Game(RenderWindow* window);
