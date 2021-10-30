@@ -4,7 +4,7 @@
 int main()
 {
 	//make a menu
-	RenderWindow MENU(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Main Menu", Style::Default);
+	RenderWindow MENU(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Main Menu", Style::Fullscreen);
 	Menu menu(MENU.getSize().x, MENU.getSize().y);
 
 	//set background
@@ -27,6 +27,13 @@ int main()
 	Texture score_texture;
 	score_texture.loadFromFile("123.jpg");
 	Sbackground.setTexture(&score_texture);
+
+	//photo to the about
+	RectangleShape Abackground;
+	Abackground.setSize(Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
+	Texture about_texture;
+	about_texture.loadFromFile("123.jpg");
+	Abackground.setTexture(&about_texture);
 
 	Clock clock;
 	float deltaTime = 0;
@@ -54,8 +61,9 @@ int main()
 				}
 				if (event.key.code == Keyboard::Return)
 				{
-					RenderWindow Score(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SCORE");
-					RenderWindow Exit(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "EXIT");
+					RenderWindow Score(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SCORE", Style::Fullscreen);
+					RenderWindow Exit(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "EXIT", Style::Fullscreen);
+					RenderWindow About(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "ABOUT", Style::Fullscreen);
 					RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Game", Style::Fullscreen);
 					window.setVerticalSyncEnabled(true);
 					srand(time(0));
@@ -82,6 +90,8 @@ int main()
 							}
 
 							Score.close();
+
+							About.close();
 
 							Exit.close();
 
@@ -117,13 +127,51 @@ int main()
 								}
 							}
 							window.close();
+
+							About.close();
+
 							Exit.close();
+
 							Score.clear();
+
 							Score.draw(Sbackground);
+
 							Score.display();
 						}
 					}
 					if (x == 2)
+					{
+						while (About.isOpen())
+						{
+							Event aevent;
+							while (About.pollEvent(aevent))
+							{
+								if (aevent.type == Event::Closed)
+								{
+									About.close();
+								}
+								if (aevent.type == Event::KeyPressed)
+								{
+									if (aevent.key.code == Keyboard::Escape)
+									{
+										About.close();
+									}
+								}
+							}
+							window.close();
+
+							Score.close();
+
+							Exit.close();
+
+							About.clear();
+
+							About.draw(Abackground);
+
+							About.display();
+						}
+					}
+					if (x == 3)
 						MENU.close();
 						break;
 				}
@@ -138,7 +186,5 @@ int main()
 
 		MENU.display();
 	}
-		
-
 	return 0;
 }

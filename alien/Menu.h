@@ -1,7 +1,7 @@
 #pragma once
 #include "AllHeader.h"
 
-#define Max_main_menu 3
+#define Max_main_menu 4
 
 class Menu
 {

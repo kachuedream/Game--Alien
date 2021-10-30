@@ -12,7 +12,7 @@ Enemy::Enemy(Vector2f spawnPoint, Texture& texture)
 	shootCount = 0;
 
 	// subtract enemy size so enemy won't get out of screen
-	flyAreaSize = Vector2f(960.f - enemySprite.getGlobalBounds().width, 1080.f - enemySprite.getGlobalBounds().height);
+	flyAreaSize = Vector2f(920.f - enemySprite.getGlobalBounds().width, 1080.f - enemySprite.getGlobalBounds().height);
 
 	speed = 300;
 

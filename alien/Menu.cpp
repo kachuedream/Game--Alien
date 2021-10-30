@@ -18,12 +18,19 @@ Menu::Menu(float width, float height)
 	menu[1].setCharacterSize(100);
 	menu[1].setPosition(400, 300);
 
-	//EXIT
+	//ABOUT
 	menu[2].setFont(font);
 	menu[2].setFillColor(Color::White);
-	menu[2].setString("EXIT");
+	menu[2].setString("ABOUT");
 	menu[2].setCharacterSize(100);
 	menu[2].setPosition(400, 400);
+
+	//EXIT
+	menu[3].setFont(font);
+	menu[3].setFillColor(Color::White);
+	menu[3].setString("EXIT");
+	menu[3].setCharacterSize(100);
+	menu[3].setPosition(400, 500);
 
 	menuSelected = -1;
 }
@@ -58,7 +65,7 @@ void Menu::moveDown()
 		menu[menuSelected].setFillColor(Color::White);
 
 		menuSelected ++;
-		if (menuSelected == 3)
+		if (menuSelected == 4)
 		{
 			menuSelected = 0;
 		}
