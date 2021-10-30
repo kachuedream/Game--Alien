@@ -38,12 +38,13 @@ Game::Game(RenderWindow* window)
 	backgrounds.push_back(Background(&backgroundTexture[4], -100.f));
 	backgrounds.push_back(Background(&backgroundTexture[5], 70.f));
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture));
 	}
 
 	barrier.setTexture(barrierTexture);
+
 }
 
 void Game::update(float deltaTime)
@@ -155,4 +156,5 @@ void Game::render()
 	this->player.render(*window);
 
 	window->draw(textScore);
+
 }

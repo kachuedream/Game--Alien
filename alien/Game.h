@@ -5,6 +5,7 @@
 #include "Background.h"
 #include "Enemy.h"
 #include "Item.h"
+//#include "Menu.h"
 
 class Game
 {
@@ -44,7 +45,7 @@ private:
 	Texture shieldTexture;
 	Texture barrierTexture;
 	vector<Item> shields;
-	//vector<Item> barriers;
+	
 
 public:
 	Game(RenderWindow* window);

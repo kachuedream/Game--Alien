@@ -51,7 +51,7 @@ void Enemy::update(float deltaTime, vector<Bullet>& bullets, vector<Item>& shiel
 
 		else 
 		{
-			bullets.push_back(Bullet(bulenTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 500.f, ENEMY_B));
+			bullets.push_back(Bullet(bulenTexture, enemySprite.getPosition(), Vector2f(-1.f, 0.f), 600.f, ENEMY_B));
 		}
 	}
 	
