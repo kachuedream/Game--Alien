@@ -44,6 +44,7 @@ Game::Game(RenderWindow* window)
 	}
 
 	barrier.setTexture(barrierTexture);
+	//barrier.setPosition(Vector2f(player.getPos().x/5,player.getPos().y/2));
 
 }
 
@@ -147,11 +148,6 @@ void Game::render()
 	if (shieldOn)
 		window->draw(barrier);
 
-	////render barrier
-	//for (int i = 0; i < barriers.size(); i++)
-	//{
-	//	barriers.at(i).render(window);
-	//}
 
 	this->player.render(*window);
 
