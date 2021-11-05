@@ -44,7 +44,6 @@ Game::Game(RenderWindow* window)
 	}
 
 	barrier.setTexture(barrierTexture);
-	//barrier.setPosition(Vector2f(player.getPos().x/5,player.getPos().y/2));
 
 }
 
@@ -57,7 +56,7 @@ void Game::update(float deltaTime)
 	{
 		attackCooldown = 0;
 		Vector2f offset = (player.getSize() / 2.f) + Vector2f(0.f, -10.f);
-		bullets.push_back(Bullet(&bulletTexture, player.getPos() + offset, Vector2f(1.f, 0.f), 1000.f));
+		bullets.push_back(Bullet(&bulletTexture, player.getPos() + offset, Vector2f(1.f, 0.f), 800.f));
 	}
 
 	//update bullets
