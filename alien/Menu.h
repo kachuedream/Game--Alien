@@ -1,118 +1,76 @@
-#include "Game.h"
-#include "Menu.h"
+#pragma once
+#include "Scene.h"
 #include "Textbox.h"
 
-int Scene::index = 0;
-
-int main()
+class Menu : public Scene
 {
-	RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Game", Style::Fullscreen);
-	window.setVerticalSyncEnabled(true);
-	srand(time(0));
+private:
+	Font font;
 
- //Textbox
+	Text playText;
+	Text scoreText;
+	Text aboutText;
+	Text exitText;
+
+	//set menubackground
+	RectangleShape background;
+	Texture mainTexture;
+
+	//set about
+	RectangleShape htp;
+	Texture aboutTexture;
+
+	//set return
+	RectangleShape re;
+	Texture reTexture;
+
+	//Textbox
 	Font tF;
-	tF.loadFromFile("PIXELED.ttf");
-	Textbox textbox1(50, Color::Black, true);
-	textbox1.setFont(tF);
-	textbox1.setPosition({ 705,570 });
-	textbox1.setLimit(true, 10);
+	Textbox textbox1;
 
-	Clock clock;
-	float deltaTime = 0;
+public:
+	Menu(RenderWindow* window);
 
-	Game game(&window);
-	Menu menu(&window);
+	void update(float deltaTime);
 
-	vector<Scene*> scenes;
-	scenes.push_back(&menu);
-	scenes.push_back(&game);
+	void render();
 
-	while (window.isOpen())
-	{
-		deltaTime = clock.restart().asSeconds();
-		Event ev;
-
-		if (Keyboard::isKeyPressed(Keyboard::Return))
-		{
-			textbox1.setSelected(true);
-		}
-		else if (Keyboard::isKeyPressed(Keyboard::Escape))
-		{
-			textbox1.setSelected(false);
-		}
-
-		//deltaTime = 0;
-		while (window.pollEvent(ev))
-		{
-			if (ev.type == Event::Closed)
-				window.close();
-
-			if (ev.type == Event::TextEntered)
-				textbox1.typedOn(ev);
-
-			else if (ev.type == Event::KeyPressed)
-			{
-				if (ev.key.code == Keyboard::Escape)
-				{
-					window.close();
-				}
-			}
-		}
-
-		scenes.at(Scene::index)->update(deltaTime);
-
-		window.clear();
-
-		textbox1.drawTo(window);
-
-		scenes.at(Scene::index)->render();
-
-		window.display();
-
-	}
-
-	return 0;
-}
-
-
-
-
+};
 //#include "Game.h"
-//
+
 //int main()
 //{
 //	RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Game", Style::Fullscreen);
 //		window.setVerticalSyncEnabled(true);
 //		srand(time(0));
-//
+
 //		Font font;
 //		font.loadFromFile("PIXELED.ttf");
-//
+
 //		Text playText("PLAY", font, 25);
 //		Text scoreText("SCORE", font, 25);
 //		Text aboutText("ABOUT", font, 25);
 //		Text exitText("EXIT", font, 25);
-//
+
 //		playText.setPosition(910, 700);
 //		scoreText.setPosition(900, 775);
 //		aboutText.setPosition(898, 850);
 //		exitText.setPosition(915, 925);
-//
+
 //		//set menubackground
 //		RectangleShape background;
 //		background.setSize(Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
 //		Texture mainTexture;
 //		mainTexture.loadFromFile("bgMenu.jpg");
 //		background.setTexture(&mainTexture);
-//
+
 //		//set about
 //		RectangleShape htp;
 //		htp.setSize(Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
 //		Texture aboutTexture;
 //		aboutTexture.loadFromFile("htp.jpg");
 //		htp.setTexture(&aboutTexture);
-//
+
 //		//set return
 //		RectangleShape re;
 //		re.setSize(Vector2f(100.f,100.f));
@@ -120,10 +78,10 @@ int main()
 //		Texture reTexture;
 //		reTexture.loadFromFile("return.png");
 //		re.setTexture(&reTexture);
-//
+
 //		Clock clock;
 //		float deltaTime = 0;
-//
+
 //		//Textbox
 //		Font tF;
 //		tF.loadFromFile("PIXELED.ttf");
@@ -131,19 +89,19 @@ int main()
 //		textbox1.setFont(tF);
 //		textbox1.setPosition({ 705,570 });
 //		textbox1.setLimit(true, 10);
-//
+
 //		//Button
 //		/*Font bF;
 //		bF.loadFromFile("PIXELED.ttf");
 //		Button btn1("Click me", { 200,50 },20,Color::Green,Color::Black);
 //		btn1.setPosition({ 1000,400 });
 //		btn1.setFont(bF);*/
-//
+
 //		while (window.isOpen())
 //		{
 //			MENU:
 //			Event event;
-//
+
 //			if (Keyboard::isKeyPressed(Keyboard::Return))
 //			{
 //				textbox1.setSelected(true);
@@ -152,15 +110,15 @@ int main()
 //			{
 //				textbox1.setSelected(false);
 //			}
-//
+
 //			while (window.pollEvent(event))
 //			{
 //				if (event.type == Event::Closed)
 //					window.close();
-//
+
 //				if (event.type == Event::TextEntered)
 //					textbox1.typedOn(event);
-//
+
 //				/*if(event.type == Event::MouseMoved)
 //					if (btn1.isMouseOver(window))
 //					{
@@ -176,9 +134,9 @@ int main()
 //						{
 //							std::cout << "You clicked the button\n";
 //						}*/
-//
+				
 //			}
-//
+
 //			if (playText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
 //			{
 //				playText.setFillColor(Color::Blue);
@@ -202,7 +160,7 @@ int main()
 //				aboutText.setFillColor(Color::White);
 //				exitText.setFillColor(Color::White);
 //			}
-//
+
 //			if (Mouse::isButtonPressed(Mouse::Left))
 //			{
 //				if (playText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
@@ -227,18 +185,18 @@ int main()
 //							}
 //						}
 //						game.update(deltaTime);
-//
+						
 //						window.clear();
-//
+						
 //						game.render();
-//
+						
 //						window.display();
-//
+
 //					}
 //				}
 //				else if (scoreText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
 //				{
-//
+
 //				}
 //				else if (aboutText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
 //				{
@@ -264,11 +222,11 @@ int main()
 //							}
 //						}
 //						window.clear();
-//
+
 //						window.draw(htp);
-//
+
 //						window.draw(re);
-//
+
 //						window.display();
 //					}
 //				}
@@ -277,23 +235,23 @@ int main()
 //					window.close();
 //				}
 //			}
-//
+
 //			window.clear();
-//
+
 //			window.draw(background);
-//
+
 //			textbox1.drawTo(window);
-//
+
 //			//btn1.drawTo(window);
-//
+
 //			window.draw(playText);
-//
+
 //			window.draw(scoreText);
-//
+
 //			window.draw(aboutText);
-//
+
 //			window.draw(exitText);
-//
+
 //			window.display();
 //		}
 //		return 0;

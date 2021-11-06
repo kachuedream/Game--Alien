@@ -47,6 +47,7 @@ Game::Game(RenderWindow* window)
 
 }
 
+
 void Game::update(float deltaTime)
 {
 	player.update(deltaTime);
@@ -75,12 +76,13 @@ void Game::update(float deltaTime)
 				bullets.erase(bullets.begin() + b);
 				shieldOn = false;
 			}
+			//End Game
 			else
-			{
+			{ 
 				window->close();
 			}
 		}
-	}
+	}  
 
 	//update shield
 	for (int s = 0; s < shields.size(); s++)
