@@ -44,8 +44,10 @@ Game::Game(RenderWindow* window)
 	}
 
 	barrier.setTexture(barrierTexture);
-
+	
+	isAlive = 1;
 }
+
 
 
 void Game::update(float deltaTime)
@@ -79,7 +81,7 @@ void Game::update(float deltaTime)
 			//End Game
 			else
 			{ 
-				window->close();
+				isAlive = 0;
 			}
 		}
 	}  
@@ -120,6 +122,21 @@ void Game::update(float deltaTime)
 	//update background
 	for (Background& background : backgrounds)
 		background.update(deltaTime);
+}
+
+bool Game::checkAlive()
+{
+	return isAlive;
+}
+
+void Game::reset()
+{
+	score = 0;
+	players.clear();
+	enemies.clear();
+	bullets.clear();
+	shields.clear();
+	isAlive = 1;
 }
 
 void Game::render()

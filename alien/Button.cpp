@@ -41,7 +41,7 @@ void Button::setPosition(Vector2f pos)
 
 void Button::drawTo(RenderWindow& window)
 {
-	window.draw(button);
+	//window.draw(button);
 	window.draw(text);
 }
 

@@ -46,10 +46,17 @@ private:
 	Texture barrierTexture;
 	vector<Item> shields;
 
+	//Logic check
+	bool isAlive;
+
 public:
 	Game(RenderWindow* window);
 
 	void update(float deltaTime);
+
+	bool checkAlive();
+
+	void reset();
 
 	void render();
 };

@@ -46,11 +46,20 @@ Menu::Menu(RenderWindow* window)
 	reTexture.loadFromFile("return.png");
 	re.setTexture(&reTexture);
 
+	//textbox
 	tF.loadFromFile("PIXELED.ttf");
 	Textbox textbox1(50, Color::Black, true);
 	textbox1.setFont(tF);
 	textbox1.setPosition({ 705,570 });
 	textbox1.setLimit(true, 10);
+
+	////Button
+	//	//play
+	//	Font bF;
+	//	bF.loadFromFile("PIXELED.ttf");
+	//	Button play("PLAY", { 910,700 }, 25, Color::Blue, Color::White);
+	//	play.setPosition({ 910,700 });
+	//	play.setFont(bF);
 }
 
 void Menu::update(float deltaTime)
@@ -86,9 +95,8 @@ void Menu::update(float deltaTime)
 		{
 			window->close();
 		}
+		//if(start.getGlobalBound().contains(Mouse::getPosition(*window).x,Mouse::getPosition(*window).y))
 	}
-
-
 }
 
 void Menu::render()
