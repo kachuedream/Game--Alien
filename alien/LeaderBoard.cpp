@@ -17,8 +17,7 @@ LeaderBoard::LeaderBoard()
 
 		text_score[i].setFont(font);
 		text_score[i].setCharacterSize(50);
-		text_score[i].setPosition(Vector2f(500, 200 + i * 10
-			0));
+		text_score[i].setPosition(Vector2f(500, 200 + i * 100));
 	}
 }
 
