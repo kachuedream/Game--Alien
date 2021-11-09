@@ -120,10 +120,35 @@ int main()
 		aboutTexture.loadFromFile("htp.jpg");
 		htp.setTexture(&aboutTexture);
 
+		//set backToMenu
+		RectangleShape btMenu;
+		btMenu.setSize(Vector2f(350.f,100.f));
+		btMenu.setPosition(770,600);
+		Texture btMenuTexture;
+		btMenuTexture.loadFromFile("backToMenu.png");
+		btMenu.setTexture(&btMenuTexture);
+
+		Text btmnText("Back to MENU", font, 25);
+		btmnText.setPosition(810, 640);
+
+		//set gameOver
+		RectangleShape gameOver;
+		gameOver.setSize(Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
+		Texture gameOverTexture;
+		gameOverTexture.loadFromFile("gameOver.jpg");
+		gameOver.setTexture(&gameOverTexture);
+
+		//set scoreBoard
+		RectangleShape scoreBoard;
+		scoreBoard.setSize(Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
+		Texture scoreBoardTexture;
+		scoreBoardTexture.loadFromFile("scoreBoard.jpg");
+		scoreBoard.setTexture(&scoreBoardTexture);
+
 		//set return
 		RectangleShape re;
-		re.setSize(Vector2f(100.f,100.f));
-		re.setPosition(25,25);
+		re.setSize(Vector2f(100.f, 100.f));
+		re.setPosition(25, 25);
 		Texture reTexture;
 		reTexture.loadFromFile("return.png");
 		re.setTexture(&reTexture);
@@ -189,6 +214,8 @@ int main()
 
 			if (Mouse::isButtonPressed(Mouse::Left))
 			{
+				//================================================================================================================================
+				//=============================================================PLAY_TEXT=========================================================
 				if (playText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
 				{
 					Game game(&window);
@@ -211,20 +238,31 @@ int main()
 							}
 						}
 						game.update(deltaTime);
-				
 						if (game.checkAlive() == 0)
 						{
 							game.reset();
 							while(window.isOpen())
 							{
+								if (btmnText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
+									{
+										btmnText.setFillColor(Color(254, 206, 111, 255));
+									}
+								else
+									{
+										btmnText.setFillColor(Color::White);
+									}
 								//Game Over Scene
-								if (re.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y) && Mouse::isButtonPressed(Mouse::Left))
+								if (btmnText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y) && Mouse::isButtonPressed(Mouse::Left))
 								{
 									goto MENU;
 								}
 								window.clear();
 
-								window.draw(re);
+								window.draw(gameOver);
+
+								window.draw(btMenu);
+
+								window.draw(btmnText);
 
 								window.display();								
 								
@@ -240,6 +278,7 @@ int main()
 					}
 				}
 				//================================================================================================================================
+				//=============================================================SCORE_TEXT=========================================================
 				else if (scoreText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
 				{
 				
@@ -269,6 +308,8 @@ int main()
 
 						window.clear();
 
+						window.draw(scoreBoard);
+
 						window.draw(re);
 
 						ld.render(window);
@@ -277,6 +318,7 @@ int main()
 					}
 				}
 				//================================================================================================================================
+				//=============================================================ABOUT_TEXT=========================================================
 				else if (aboutText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
 				{
 					while (window.isOpen())
@@ -309,6 +351,8 @@ int main()
 						window.display();
 					}
 				}
+				//================================================================================================================================
+				//=============================================================EXIT_TEXT=========================================================
 				else if (exitText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
 				{
 					window.close();
@@ -320,8 +364,6 @@ int main()
 			window.draw(background);
 
 			textbox1.drawTo(window);
-
-			//btn1.drawTo(window);
 
 			window.draw(playText);
 

@@ -46,6 +46,7 @@ Game::Game(RenderWindow* window)
 	barrier.setTexture(barrierTexture);
 	
 	isAlive = 1;
+
 }
 
 
