@@ -1,88 +1,3 @@
-//#include "Game.h"
-//#include "Menu.h"
-//#include "Textbox.h"
-//
-//int Scene::index = 0;
-//
-//int main()
-//{
-//	RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Game", Style::Fullscreen);
-//	window.setVerticalSyncEnabled(true);
-//	srand(time(0));
-//
-// //Textbox
-//	Font tF;
-//	tF.loadFromFile("PIXELED.ttf");
-//	Textbox textbox1(50, Color::Black, true);
-//	textbox1.setFont(tF);
-//	textbox1.setPosition({ 705,570 });
-//	textbox1.setLimit(true, 10);
-//
-//	Clock clock;
-//	float deltaTime = 0;
-//
-//	Game game(&window);
-//	Menu menu(&window);
-//
-//	vector<Scene*> scenes;
-//	scenes.push_back(&menu);
-//	scenes.push_back(&game);
-//
-//	while (window.isOpen())
-//	{
-//		deltaTime = clock.restart().asSeconds();
-//		Event event;
-//
-//		if (Keyboard::isKeyPressed(Keyboard::Return))
-//		{
-//			textbox1.setSelected(true);
-//		}
-//		else if (Keyboard::isKeyPressed(Keyboard::Escape))
-//		{
-//			textbox1.setSelected(false);
-//		}
-//		//deltaTime = 0;
-//		while (window.pollEvent(event))
-//		{
-//			/*if (event.type == Event::Closed)
-//				window.close();
-//
-//			if (event.type == Event::TextEntered)
-//				textbox1.typedOn(ev);
-//
-//			else if (event.type == Event::KeyPressed)
-//			{
-//				if (event.key.code == Keyboard::Escape)
-//				{
-//					window.close();
-//				}
-//			}*/
-//			switch (event.type)
-//			{
-//			case Event::Closed:
-//				window.close();
-//
-//			case Event::TextEntered:
-//				textbox1.typedOn(event);
-//			}
-//		}
-//
-//		scenes.at(Scene::index)->update(deltaTime);
-//
-//		window.clear();
-//
-//		textbox1.drawTo(window);
-//
-//		scenes.at(Scene::index)->render();
-//
-//		window.display();
-//
-//	}
-//
-//	return 0;
-//}
-
-
 #include "Game.h"
 #include "LeaderBoard.h"
 
@@ -137,6 +52,11 @@ int main()
 		Texture gameOverTexture;
 		gameOverTexture.loadFromFile("gameOver.jpg");
 		gameOver.setTexture(&gameOverTexture);
+
+		Text playerScore;
+		playerScore.setFont(font);
+		playerScore.setCharacterSize(25);
+		playerScore.setPosition(815,520);
 
 		//set scoreBoard
 		RectangleShape scoreBoard;
@@ -216,10 +136,11 @@ int main()
 			{
 				//================================================================================================================================
 				//=============================================================PLAY_TEXT=========================================================
-				if (playText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
+				if (playText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y) && textbox1.getText() != "")
 				{
 					Game game(&window);
-					deltaTime = 0;
+					game.setName(textbox1.getText());
+					//deltaTime = 0;
 					while (window.isOpen())
 					{
 						deltaTime = clock.restart().asSeconds();
@@ -238,9 +159,14 @@ int main()
 							}
 						}
 						game.update(deltaTime);
+						//Trigger Game Over
 						if (game.checkAlive() == 0)
 						{
+							playerScore.setString("Score: " + to_string(game.getScore()));
+							ld.addScore(game.getName(),game.getScore());
+							ld.saveToFile("score.txt");
 							game.reset();
+
 							while(window.isOpen())
 							{
 								if (btmnText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
@@ -261,6 +187,8 @@ int main()
 								window.draw(gameOver);
 
 								window.draw(btMenu);
+
+								window.draw(playerScore);
 
 								window.draw(btmnText);
 

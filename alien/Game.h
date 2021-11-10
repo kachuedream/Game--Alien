@@ -18,8 +18,10 @@ private:
 	Text textScore;
 
 	//player
+	string name;
 	Player player;
 	vector<Player> players;
+	Text nameText;
 
 	//bullet
 	Texture bulletTexture;
@@ -55,6 +57,12 @@ public:
 	void update(float deltaTime);
 
 	bool checkAlive();
+
+	int getScore();
+
+	void setName(string name);
+
+	string getName();
 
 	void reset();
 

@@ -19,6 +19,12 @@ Game::Game(RenderWindow* window)
 	textScore.setPosition(Vector2f(30,20));
 	textScore.setString("Score "+to_string(score));
 
+	//You can remove if doesn't need it
+	nameText.setFont(font);
+	nameText.setFillColor(Color::White);
+	nameText.setCharacterSize(50);
+	nameText.setPosition(Vector2f(800,20));
+
 	//items
 	shieldTexture.loadFromFile("shield1.png");
 	shieldOn = false;
@@ -130,6 +136,22 @@ bool Game::checkAlive()
 	return isAlive;
 }
 
+int Game::getScore()
+{
+	return this->score;
+}
+
+void Game::setName(string name)
+{
+	this->name = name;
+	nameText.setString(name);
+}
+
+string Game::getName()
+{
+	return this->name;
+}
+
 void Game::reset()
 {
 	score = 0;
@@ -169,6 +191,8 @@ void Game::render()
 
 
 	this->player.render(*window);
+
+	//window->draw(nameText);
 
 	window->draw(textScore);
 
