@@ -18,11 +18,11 @@ private:
 	Vector2f direction;
 	Vector2f targetPos;
 
-	float speed;
+	float enemySpeed;
 
 public:
 
-	Enemy(Vector2f spawnPoint, Texture& texture);
+	Enemy(Vector2f spawnPoint, Texture& texture,float speed);
 
 	Vector2f getPos();
 	Vector2f getSize();

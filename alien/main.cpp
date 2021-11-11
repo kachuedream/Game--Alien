@@ -84,9 +84,12 @@ int main()
 		textbox1.setPosition({ 705,570 });
 		textbox1.setLimit(true, 10);
 
+		float multiplier = 1;
+
 		while (window.isOpen())
 		{
-			MENU:
+		MENU:
+			deltaTime = clock.restart().asSeconds() * multiplier;
 			Event event;
 
 			if (Keyboard::isKeyPressed(Keyboard::Return))
@@ -139,15 +142,13 @@ int main()
 				if (playText.getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y) && textbox1.getText() != "")
 				{
 					Game game(&window);
+					float multiplier = 1;
 					game.setName(textbox1.getText());
-					//deltaTime = 0;
 					while (window.isOpen())
 					{
-						deltaTime = clock.restart().asSeconds();
 						Event ev;
 						while (window.pollEvent(ev))
 						{
-							//deltaTime = 0;
 							if (ev.type == Event::Closed)
 								window.close();
 							else if (ev.type == Event::KeyPressed)
@@ -162,6 +163,7 @@ int main()
 						//Trigger Game Over
 						if (game.checkAlive() == 0)
 						{
+							float multiplier = 1;
 							playerScore.setString("Score: " + to_string(game.getScore()));
 							ld.addScore(game.getName(),game.getScore());
 							ld.saveToFile("score.txt");
@@ -212,9 +214,11 @@ int main()
 				
 					while (window.isOpen())
 					{
+						float multiplier = 1;
 						Event aevent;
 						while (window.pollEvent(aevent))
 						{
+
 							if (aevent.type == Event::Closed)
 							{
 								window.close();
@@ -251,6 +255,7 @@ int main()
 				{
 					while (window.isOpen())
 					{
+						float multiplier = 1;
 						Event aevent;
 						while (window.pollEvent(aevent))
 						{

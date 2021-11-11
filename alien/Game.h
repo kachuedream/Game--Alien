@@ -6,7 +6,7 @@
 #include "Enemy.h"
 #include "Item.h"
 #include "Textbox.h"
-#include "Button.h"
+//#include "Button.h"
 #include "LeaderBoard.h"
 
 class Game : public Scene
@@ -50,6 +50,8 @@ private:
 
 	//Logic check
 	bool isAlive;
+
+	float inGameTime;
 
 public:
 	Game(RenderWindow* window);

@@ -7,23 +7,24 @@ Game::Game(RenderWindow* window)
 	attackCooldown = attackCooldownMax;
 	bulletTexture.loadFromFile("bullets.png");
 	enemyTexture.loadFromFile("enemy2.png");
+	//bossTexture.loadFromFile("boss.png");
 	bulenTexture.loadFromFile("bulen1.png");
 	barrierTexture.loadFromFile("barrier.png");
-	
+
 	//score
 	score = 0;
 	font.loadFromFile("GAMERIA.ttf");
 	textScore.setFont(font);
 	textScore.setFillColor(Color::White);
 	textScore.setCharacterSize(50);
-	textScore.setPosition(Vector2f(30,20));
-	textScore.setString("Score "+to_string(score));
+	textScore.setPosition(Vector2f(30, 20));
+	textScore.setString("Score " + to_string(score));
 
 	//You can remove if doesn't need it
 	nameText.setFont(font);
 	nameText.setFillColor(Color::White);
 	nameText.setCharacterSize(50);
-	nameText.setPosition(Vector2f(800,20));
+	nameText.setPosition(Vector2f(800, 20));
 
 	//items
 	shieldTexture.loadFromFile("shield1.png");
@@ -46,12 +47,14 @@ Game::Game(RenderWindow* window)
 
 	for (int i = 0; i < 4; i++)
 	{
-		enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture));
+		enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture,300));
 	}
 
 	barrier.setTexture(barrierTexture);
-	
+
 	isAlive = 1;
+
+	inGameTime = 0;
 
 }
 
@@ -59,6 +62,7 @@ Game::Game(RenderWindow* window)
 
 void Game::update(float deltaTime)
 {
+	inGameTime += deltaTime;
 	player.update(deltaTime);
 	barrier.setPosition(player.getPos());
 	attackCooldown += deltaTime;
@@ -87,11 +91,11 @@ void Game::update(float deltaTime)
 			}
 			//End Game
 			else
-			{ 
+			{
 				isAlive = 0;
 			}
 		}
-	}  
+	}
 
 	//update shield
 	for (int s = 0; s < shields.size(); s++)
@@ -112,17 +116,54 @@ void Game::update(float deltaTime)
 	//update enemies
 	for (int e = 0; e < enemies.size(); e++)
 	{
-		enemies.at(e).update(deltaTime, bullets, shields, &bulenTexture,&shieldTexture);
+		enemies.at(e).update(deltaTime, bullets, shields, &bulenTexture, &shieldTexture);
 		for (size_t b = 0; b < bullets.size(); b++)
 		{
-			if (bullets[b].getGlobalBounds().intersects(enemies[e].getGlobalBounds()) && bullets[b].tag != ENEMY_B)
+			if (inGameTime >= 0 && inGameTime <= 60)
 			{
-				enemies.erase(enemies.begin() + e);
-				enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture));
-				score += 100;
-				textScore.setString("Score " + to_string(score));
-				break;
+				if (bullets[b].getGlobalBounds().intersects(enemies[e].getGlobalBounds()) && bullets[b].tag != ENEMY_B)
+				{
+					enemies.erase(enemies.begin() + e);
+					enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture, 300));
+					score += 100;
+					textScore.setString("Score " + to_string(score));
+					break;
+				}
 			}
+			else if (inGameTime >60 && inGameTime <=120)
+			{
+				if (bullets[b].getGlobalBounds().intersects(enemies[e].getGlobalBounds()) && bullets[b].tag != ENEMY_B)
+				{
+					enemies.erase(enemies.begin() + e);
+					enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture, 400));
+					score += 100;
+					textScore.setString("Score " + to_string(score));
+					break;
+				}
+			}
+			else if (inGameTime > 120 && inGameTime <=180)
+			{
+				if (bullets[b].getGlobalBounds().intersects(enemies[e].getGlobalBounds()) && bullets[b].tag != ENEMY_B)
+				{
+					enemies.erase(enemies.begin() + e);
+					enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture, 500));
+					score += 100;
+					textScore.setString("Score " + to_string(score));
+					break;
+				}
+			}
+			else if (inGameTime > 180)
+			{
+				if (bullets[b].getGlobalBounds().intersects(enemies[e].getGlobalBounds()) && bullets[b].tag != ENEMY_B)
+				{
+					enemies.erase(enemies.begin() + e);
+					enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture, 500));
+					score += 100;
+					textScore.setString("Score " + to_string(score));
+					break;
+				}
+			}
+			
 		}
 	}
 
@@ -154,6 +195,7 @@ string Game::getName()
 
 void Game::reset()
 {
+	inGameTime = 0;
 	score = 0;
 	players.clear();
 	enemies.clear();
