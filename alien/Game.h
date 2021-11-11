@@ -1,12 +1,11 @@
 #pragma once
-#include "Scene.h"
 #include "Player.h"
+#include "Scene.h"
 #include "Bullet.h"
 #include "Background.h"
 #include "Enemy.h"
 #include "Item.h"
 #include "Textbox.h"
-//#include "Button.h"
 #include "LeaderBoard.h"
 
 class Game : public Scene

@@ -157,7 +157,7 @@ void Game::update(float deltaTime)
 				if (bullets[b].getGlobalBounds().intersects(enemies[e].getGlobalBounds()) && bullets[b].tag != ENEMY_B)
 				{
 					enemies.erase(enemies.begin() + e);
-					enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture, 500));
+					enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture, 600));
 					score += 100;
 					textScore.setString("Score " + to_string(score));
 					break;

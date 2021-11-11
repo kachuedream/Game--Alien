@@ -79,7 +79,7 @@ int main()
 		//Textbox
 		Font tF;
 		tF.loadFromFile("PIXELED.ttf");
-		Textbox textbox1(50,Color::Black,true);
+		Textbox textbox1(50,Color::Black,false);
 		textbox1.setFont(tF);
 		textbox1.setPosition({ 705,570 });
 		textbox1.setLimit(true, 10);
@@ -91,14 +91,15 @@ int main()
 		MENU:
 			deltaTime = clock.restart().asSeconds() * multiplier;
 			Event event;
-
+			
 			if (Keyboard::isKeyPressed(Keyboard::Return))
 			{
 				textbox1.setSelected(true);
 			}
-			else if (Keyboard::isKeyPressed(Keyboard::Escape))
+
+			else if (Keyboard::isKeyPressed(Keyboard::Enter))
 			{
-				textbox1.setSelected(false);
+				textbox1.setSelected(true);
 			}
 
 			while (window.pollEvent(event))
