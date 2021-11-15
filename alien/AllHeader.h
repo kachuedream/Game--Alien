@@ -13,6 +13,8 @@ using namespace sf;
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
 
+extern float multiplier ;
+
 inline Vector2f normalize(Vector2f vec)
 {
     float len = sqrtf(vec.x * vec.x + vec.y * vec.y);

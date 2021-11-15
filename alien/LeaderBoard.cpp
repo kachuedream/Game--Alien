@@ -90,7 +90,6 @@ void LeaderBoard::update()
 		text_name[i].setString(data[i].name);
 		text_score[i].setString(std::to_string(data[i].score));
 	}
-	addScore("sf", 90);
 	saveToFile("score.txt");
 }
 

@@ -127,6 +127,7 @@ void Game::update(float deltaTime)
 					enemies.push_back(Enemy(Vector2f(1920, rand() % SCREEN_HEIGHT), enemyTexture, 300));
 					score += 100;
 					textScore.setString("Score " + to_string(score));
+					//multiplier = 0;
 					break;
 				}
 			}

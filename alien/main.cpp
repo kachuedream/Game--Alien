@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "LeaderBoard.h"
 
+float multiplier = 1;
+
 int main()
 {
 	RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Game", Style::Fullscreen);
@@ -78,7 +80,7 @@ int main()
 	textbox1.setPosition({ 705,570 });
 	textbox1.setLimit(true, 10);
 
-	float multiplier = 1;
+	//float multiplier = 1;
 
 	while (window.isOpen())
 	{
@@ -162,7 +164,7 @@ int main()
 						{
 							if (ev.key.code == Keyboard::Escape)
 							{
-								window.close();
+								goto MENU;
 							}
 						}
 					}
@@ -170,7 +172,7 @@ int main()
 					//Trigger Game Over
 					if (game.checkAlive() == 0)
 					{
-						float multiplier = 1;
+						//float multiplier = 1;
 						playerScore.setString("Score: " + to_string(game.getScore()));
 						ld.addScore(game.getName(), game.getScore());
 						ld.saveToFile("score.txt");
@@ -273,7 +275,7 @@ int main()
 			{
 				while (window.isOpen())
 				{
-					float multiplier = 1;
+					//float multiplier = 1;
 					Event aevent;
 					while (window.pollEvent(aevent))
 					{
