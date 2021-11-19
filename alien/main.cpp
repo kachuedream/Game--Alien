@@ -24,7 +24,13 @@ int main()
 	aboutText.setPosition(898, 850);
 	exitText.setPosition(915, 925);
 	backText.setPosition(30, 30);
-
+	
+	//music
+	Music gamemusic;
+	gamemusic.setLoop(true);
+	gamemusic.openFromFile("game sound.wav");
+	gamemusic.play();
+	
 	//set menubackground
 	RectangleShape background;
 	background.setSize(Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -172,7 +178,6 @@ int main()
 					//Trigger Game Over
 					if (game.checkAlive() == 0)
 					{
-						//float multiplier = 1;
 						playerScore.setString("Score: " + to_string(game.getScore()));
 						ld.addScore(game.getName(), game.getScore());
 						ld.saveToFile("score.txt");
@@ -275,7 +280,6 @@ int main()
 			{
 				while (window.isOpen())
 				{
-					//float multiplier = 1;
 					Event aevent;
 					while (window.pollEvent(aevent))
 					{
